@@ -1,0 +1,71 @@
+Write a program to find the node at which the intersection of two singly linked lists begins.
+
+
+For example, the following two linked lists:
+
+A:          a1 → a2
+                   ↘
+                     c1 → c2 → c3
+                   ↗            
+B:     b1 → b2 → b3
+begin to intersect at node c1.
+
+
+Notes:
+
+If the two linked lists have no intersection at all, return null.
+The linked lists must retain their original structure after the function returns.
+You may assume there are no cycles anywhere in the entire linked structure.
+Your code should preferably run in O(n) time and use only O(1) memory.
+
+class Solution:
+    # @param two ListNodes
+    # @return the intersected ListNode
+    def getIntersectionNode(self, headA, headB):
+        if headA != None and headB != None:
+            #idea: check the last element to see if they merge
+            # record the length of two linked lists, find the difference
+            # find the merge point
+            lengthA = 1
+            lengthB = 1
+            ha = headA
+            hb = headB
+            while ha.next != None:
+                lengthA += 1
+                ha = ha.next
+            while hb.next != None:
+                lengthB += 1
+                hb = hb.next
+            
+            ha1 = headA
+            ha2 = headA
+            ha3 = headA
+            hb1 = headB
+            hb2 = headB
+            hb3 = headB
+            if lengthA == lengthB:
+                while ha1 != None:
+                    if ha1.val == hb1.val:
+                        return ha1
+                    ha1 = ha1.next
+                    hb1 = hb1.next
+            
+            elif lengthA > lengthB:
+                diff = lengthA - lengthB
+                for i in range(diff):
+                    ha2 = ha2.next
+                while ha2 != None:
+                    if ha2.val == hb2.val:
+                        return ha2
+                    ha2 = ha2.next
+                    hb2 = hb2.next
+            
+            else:
+                diff = lengthB - lengthA
+                for i in range(diff):
+                    hb3 = hb3.next
+                while ha3 != None:
+                    if ha3.val == hb3.val:
+                        return ha3
+                    ha3 = ha3.next
+                    hb3 = hb3.next
