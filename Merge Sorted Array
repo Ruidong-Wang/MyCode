@@ -1,0 +1,33 @@
+Given two sorted integer arrays A and B, merge B into A as one sorted array.
+
+Note:
+You may assume that A has enough space (size that is greater or equal to m + n) to hold additional elements from B. 
+The number of elements initialized in A and B are m and n respectively.
+
+class Solution:
+    # @param A  a list of integers
+    # @param m  an integer, length of A
+    # @param B  a list of integers
+    # @param n  an integer, length of B
+    # @return nothing
+    def merge(self, A, m, B, n):
+        # do it reversely, from largest to smallest
+        for i in range(n):
+            A.append(0)
+            
+        a = m - 1
+        b = n - 1
+        k = m + n - 1
+        while a >= 0 and b >=0:
+            if A[a] >= B[b]:
+                A[k] = A[a]
+                a -= 1
+                k -= 1
+            else:
+                A[k] = B[b]
+                b -= 1
+                k -= 1
+        
+        if a == -1 and k >= 0:
+            for i in range(k+1):
+                A[i] = B[i]
