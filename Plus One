@@ -1,0 +1,20 @@
+Given a non-negative number represented as an array of digits, plus one to the number.
+
+The digits are stored such that the most significant digit is at the head of the list.
+
+class Solution:
+    # @param digits, a list of integer digits
+    # @return a list of integer digits
+    def plusOne(self, digits):
+        extra = 1
+        for i in range(-1,-len(digits)-1,-1):
+            temp = (digits[i] + extra) % 10
+            extra = (digits[i] + extra) // 10
+            digits[i] = temp
+
+            # digit[i] value will be changed
+            
+        if extra == 1:
+            digits.insert(0,1)
+            
+        return digits
