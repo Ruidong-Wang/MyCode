@@ -1,0 +1,85 @@
+Given a binary tree, check whether it is a mirror of itself (ie, symmetric around its center).
+
+For example, this binary tree is symmetric:
+
+    1
+   / \
+  2   2
+ / \ / \
+3  4 4  3
+But the following is not:
+    1
+   / \
+  2   2
+   \   \
+   3    3
+Note:
+Bonus points if you could solve it both recursively and iteratively.
+
+
+# Definition for a  binary tree node
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+
+class Solution:
+    # @param root, a tree node
+    # @return a boolean
+    def isSymmetric(self, root):
+        if root == None:
+            return True
+            
+        ltorlist = [root]
+        rtollist = [root]
+        
+        while True:
+            length = len(ltorlist)
+            newl = []
+            newr = []
+            
+            for k in range(length):
+                if ltorlist[k].val != rtollist[k].val:
+                    return False
+                if ltorlist[k].left != None and rtollist[k].right != None:
+                    newl.append(ltorlist[k].left)
+                    newr.append(rtollist[k].right)
+                if ltorlist[k].right != None and rtollist[k].left != None:
+                    newl.append(ltorlist[k].right)
+                    newr.append(rtollist[k].left)
+                if ltorlist[k].left == None and rtollist[k].right != None:
+                    return False
+                if ltorlist[k].left != None and rtollist[k].right == None:
+                    return False
+                if ltorlist[k].right == None and rtollist[k].left != None:
+                    return False
+                if ltorlist[k].right != None and rtollist[k].left == None:
+                    return False
+
+                    
+            if newl == [] and newr == []:
+                return True
+            else:
+                ltorlist = newl
+                rtollist = newr
+            
+
+
+
+
+
+    def testtwotrees(self, r1, r2):
+        if r1 == None and r2 == None:
+            return True
+        if r1 == None or r2 == None:
+            return False
+        if r1.val != r2.val:
+            return False
+        else:
+            return self.testtwotrees(r1.left, r2.right) and self.testtwotrees(r1.right, r2.left)
+
+    def isSymmetric(self, root):
+        # recursive
+#        return self.testtwotrees(root, root)
