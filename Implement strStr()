@@ -1,0 +1,38 @@
+Implement strStr().
+
+Returns the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
+
+O(nm) runtime, O(1) space – Brute force:
+
+You could demonstrate to your interviewer that this problem can be solved using known efficient algorithms such as Rabin-Karp algorithm, KMP algorithm, and the Boyer- Moore algorithm. Since these algorithms are usually studied in an advanced algorithms class, it is sufficient to solve it using the most direct method in an interview – The brute force method.
+
+The brute force method is straightforward to implement. We scan the needle with the haystack from its first position and start matching all subsequent letters one by one. If one of the letters does not match, we start over again with the next position in the haystack.
+
+The key is to implement the solution cleanly without dealing with each edge case separately.
+
+class Solution:
+    # @param haystack, a string
+    # @param needle, a string
+    # @return an integer
+    def strStr(self, haystack, needle):
+        if needle == "":
+            return 0
+        if haystack == "":
+            return -1
+        if len(needle) > len(haystack):
+            return -1
+            
+       
+        for i in range(len(haystack) - len(needle) + 1):            #pointer on haystack
+            found = True   #current i is a candidate
+            j = 0
+            
+            while j < len(needle) and found is True:
+                if haystack[i + j] != needle[j]:
+                    found = False
+                j += 1
+            
+            if found:
+                return i
+        
+        return -1
