@@ -1,0 +1,15 @@
+Given an integer n, return the number of trailing zeroes in n!.
+
+Note: Your solution should be in logarithmic time complexity.
+
+class Solution:
+    # @return an integer
+    
+    # just count number of factor 5's
+    def trailingZeroes(self, n):
+        zeros = 0
+        quotient = n
+        while quotient >= 5:
+            zeros = zeros + quotient // 5
+            quotient = quotient // 5
+        return zeros
