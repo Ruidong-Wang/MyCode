@@ -1,0 +1,22 @@
+Given a roman numeral, convert it to an integer.
+
+Input is guaranteed to be within the range from 1 to 3999.
+
+class Solution:
+    # @return an integer
+    # I=1, V=5, X=10, L=50, C=100, D=500, M=1000
+    # special cases: IV, IX, XL, XC, CD, CM
+    def romanToInt(self, s):
+        number = 0
+        dict = {"I":1, "V":5, "X":10, "L":50, "C":100, "D":500, "M":1000}
+        i = 0
+        
+        while i < len(s):
+            if i < len(s) - 1 and dict[s[i]] < dict[s[i + 1]]:
+                number = number - dict[s[i]] + dict[s[i + 1]]
+                i += 2
+            else:
+                number += dict[s[i]]
+                i += 1
+            
+        return number
