@@ -1,0 +1,42 @@
+The string "PAYPALISHIRING" is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility)
+
+P   A   H   N
+A P L S I I G
+Y   I   R
+And then read line by line: "PAHNAPLSIIGYIR"
+Write the code that will take a string and make this conversion given a number of rows:
+
+string convert(string text, int nRows);
+convert("PAYPALISHIRING", 3) should return "PAHNAPLSIIGYIR".
+
+
+class Solution:
+    # @return a string
+    def convert(self, s, n):
+        if n == 1:
+            return s
+            
+        first = ""
+        middle = ""
+        last = ""
+        
+        k = 0
+        while k < len(s):
+            first = first + s[k]
+            k += 2*(n - 1)
+            
+        k = n - 1
+        while k < len(s):
+            last = last + s[k]
+            k += 2*(n - 1)
+        
+        # now take care of rows other than the first and the last   
+        for i in range(2,n):
+            k = i - 1
+            while k < len(s):
+                middle = middle + s[k]
+                if k + 2*(n - i) < len(s):
+                    middle = middle + s[k + 2*(n - i)]
+                k += 2*(n - 1)
+                
+        return first + middle + last
