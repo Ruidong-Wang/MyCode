@@ -1,0 +1,36 @@
+Given a binary tree, find its maximum depth.
+
+The maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.
+
+# Definition for a  binary tree node
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    # @param root, a tree node
+    # @return an integer
+    
+    # try dfs tree this time
+    def maxDepth(self, root):
+        if root == None:
+            return 0
+        
+        visited = [(root, 1)]
+        max = 1
+        while visited != []:
+            (node, depth) = visited[-1]
+            visited.pop()
+            
+            if node.left != None:
+                visited.append((node.left, depth + 1))
+                if depth + 1 > max:
+                    max = depth + 1
+            if node.right != None:
+                visited.append((node.right, depth + 1))
+                if depth + 1 > max:
+                    max = depth + 1
+
+        return max
