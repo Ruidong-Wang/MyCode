@@ -1,0 +1,33 @@
+Given an unsorted integer array, find the first missing positive integer.
+
+For example,
+Given [1,2,0] return 3,
+and [3,4,-1,1] return 2.
+
+Your algorithm should run in O(n) time and uses constant space.
+
+class Solution:
+    # @param A, a list of integers
+    # @return an integer
+    def firstMissingPositive(self, A):
+        # modify old list to achieve O(1) space requirement
+        # if we find 5 in the list, then swap it with A[4]
+
+        for i in range(len(A)):
+            if A[i] > len(A):
+                A[i] = 0
+                # too large value is useless
+                
+        for i in range(len(A)):
+            while A[i] > 0 and A[A[i] - 1] != A[i]:
+                temp1 = A[i]
+                temp2 = A[A[i] - 1]
+                A[A[i] - 1] = temp1
+                A[i] = temp2
+            
+            
+        for j in range(len(A)):
+            if A[j] != j + 1:
+                return j + 1
+                
+        return len(A) + 1
