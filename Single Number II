@@ -1,0 +1,22 @@
+Given an array of integers, every element appears three times except for one. Find that single one.
+
+Note:
+Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory?
+
+class Solution:
+    # @param A, a list of integer
+    # @return an integer
+    def singleNumber(self, A):
+        # count the number of 1 bits in each position, after mod 3, what's left is the single one
+        one, two, zero = 0, 0, -1
+        for num in A:
+            newtwo = (one & num) | (two & (two ^ num))
+            newzero = (two & num) | (zero & (zero ^ num))
+            newone = (zero & num) | (one & (one ^ num))
+            
+            one = newone
+            two = newtwo
+            zero = newzero
+        
+        return one
+        
